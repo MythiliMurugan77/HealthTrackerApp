@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+
+<html>
+<title>HEALTH TRACKER</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 50%;
+  padding: 10px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+ a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+body {font-family: "Times New Roman", Georgia, Serif;}
+h1, h2, h3, h4, h5, h6 ,form{
+  font-family: "Playfair Display";
+  letter-spacing: 5px;
+}
+#bg {
+	background-color: red:
+}
+div.ex{
+	font-size:14px;
+ font-family: "Playfair Display";
+  letter-spacing: 1px;
+}
+
+b a:link, a:visited {
+  background-color: #f44336;
+  color: white;
+  padding: 15px 25px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}
+
+b a:hover, a:active {
+  background-color: red;
+}
+</style>
+<script>
+	function validates()
+{
+	
+	var uname=document.getElementById("username").value;
+	var pass=document.getElementById("password").value;
+	
+	if(uname=="health" && pass=="health")
+	{
+			if (window.confirm("Authenication success!!")) {
+				window.location.href = "http://localhost/health/basic.html#dietian_menu"
+		}
+	}
+	else
+	{
+		if (window.confirm("Authenication failed !!")) {
+			window.location.href = "http://localhost/health/basic.html#login"
+		}
+	}
+}
+</script>
+
+
+<body>
+
+<!-- Navbar (sit on top) -->
+<div class="head">
+<div class="w3-top w3-black" id="bg">
+  <div class="w3-bar w3-black w3-padding w3-card" style="letter-spacing:4px;">
+    <a href="#home" class="w3-bar-item w3-button">EatRight</a>
+    <!-- Right-sided navbar links. Hide them on small screens -->
+    <div class="w3-right w3-hide-small" >
+      <a href="#login" class="w3-bar-item w3-button">Login</a>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Header -->
+<header class="w3-display-container w3-content w3-wide" style="max-width:1600px;min-width:500px" id="home">
+  <img class="w3-image" src="" alt="Hamburger Catering" width="1600" height="800">
+  <div class="w3-display-bottomleft w3-padding-large w3-opacity">
+   
+  </div>
+</header>
+
+<!-- Page content -->
+
+   <hr>
+   <form id="login" action="/action_page.php">
+  <div class="container">
+    <h1>LOGIN</h1>
+ 
+    <hr>
+
+    <label ><b>Username</b></label><BR>
+    <input type="text" placeholder="Enter Email" name="text"id="username" required><BR>
+
+    <label><b>Password</b></label><BR>
+    <input type="password" placeholder="Enter Password" id="password" name="psw" required><BR>
+		<hr>
+
+
+    <button type="submit" class="registerbtn" onclick="validates()">Submit</button>
+  </div>
+  
+  <div class="container signin">
+    <p>Already have an account? <a href="#">Sign in</a>.</p>
+  </div>
+</form>
+	<div id="dietian_menu" class="da">
+	<div class="w3-content" style="max-width:1100px">
+
+  <!-- About Section -->
+  <div class="w3-row w3-padding-64" id="about">
+    <div class="w3-col m6 w3-padding-large w3-hide-small">
+     <img src="d.jpg"   width="500" height="650">
+    </div>
+
+    <div class="w3-col m6 w3-padding-large">
+    <b><a href="#user_list" target="_blank">View List of Users</a></b><br><br><br>
+	<b><a href="#prepare" target="_blank">Prepare food chart</a></b><br><br><br>
+	<b><a href="default.asp" target="_blank">View  prepared chart</a></b><br><br><br>
+	<b><a href="default.asp" target="_blank">View Calorie Chart</a></b><br><br><br>
+    </div>
+  </div>
+   <hr>
+	</div>
+<div id="user_list">
+
+</div>
+<div class="w3-row w3-padding-64" id="prepare">
+   <h1 style="color:tomato" >MEAL PLANNER</h1><br>
+    <div class="w3-col l6 w3-padding-large">
+	<table>
+		<caption style="color:tomato"></caption>
+		 
+
+      <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "healthcare";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$sql = "SELECT Sno,FoodItem,Quantity,Calories FROM calorie";
+$result = $conn->query($sql);
+
+
+if ($result->num_rows > 0) {
+    // output data of each row
+	
+    while($row = $result->fetch_assoc()) {
+		?>
+		   <tr>
+
+	<form method="post" action="basic.php">
+			   
+  <td><input type="text" name="sno" value="<?php echo $row["FoodItem"]; ?>"></td> 
+ <td><input type="submit" value="ADD">
+ </td>
+ </form>
+</tr>
+<?php
+   }
+} 
+else {
+    echo "0 results";
+
+}
+?>
+	 
+</table>
+    </div>
+
+    <div class="w3-col l6 w3-padding-large">
+      <img src="planner.jpg" alt="Menu" style="width:100%">
+    </div>
+	 <div id="yourmeal">
+	 <h2>YOUR MEAL PLAN</h2><ul>
+<?php $sql1 = "SELECT meal FROM mealplanner";
+$result1 = $conn->query($sql1);
+
+
+if ($result1->num_rows > 0) {
+    // output data of each row
+	
+    while($row1 = $result1->fetch_assoc()) {
+		?>
+		<li><?php echo $row1["meal"]; ?></li>
+		<?php
+   }
+} 
+else {
+    echo "0 results";
+
+}
+$conn->close();
+?>
+		
+</div> 
+  </div>
+
+<footer class="w3-center w3-light-grey w3-padding-10">
+  <p>maintained by &copy www.welldeveops.com</p>
+</footer>
+
+</body>
+</html>
